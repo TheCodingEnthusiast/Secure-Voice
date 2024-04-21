@@ -21,13 +21,13 @@ async def login(username: str = Form(...), password: str = Form(...), audio: Upl
         message=CRUD_login(username,password)
         print(message)
 
-        if message!=None:
-            audio_directory = "audio_files"
+        if message=="Logged in successfully":
+            audio_directory = f"audio_files"
             if not os.path.exists(audio_directory):
                 os.makedirs(audio_directory)
 
             # Define the path where the audio file will be saved
-            audio_file_path = os.path.join(audio_directory, audio.filename)
+            audio_file_path = os.path.join(audio_directory, f"{username}_{audio.filename}")
 
             # Save the uploaded audio file to the specified path
             with open(audio_file_path, "wb") as buffer:
@@ -52,23 +52,28 @@ async def register(username: str = Form(...), password: str = Form(...), email: 
     try:
         # Define the directory where you want to save the audio files
         # Make sure this directory exists or create it if it doesn't
-        audio_directory = "audio_files"
-        if not os.path.exists(audio_directory):
-            os.makedirs(audio_directory)
 
-        # Define the path where the audio file will be saved
-        audio_file_path = os.path.join(audio_directory, audio.filename)
-
-        # Save the uploaded audio file to the specified path
-        with open(audio_file_path, "wb") as buffer:
-            while True:
-                chunk = await audio.read(8192) # Read the file in chunks of 8KB
-                if not chunk:
-                    break
-                buffer.write(chunk)
         message=CRUD_register(username,password,email)
-        print(f"Audio file saved at {audio_file_path}")
-        return {"message": f"{message}", "audio_file_path": audio_file_path}
+
+        if message=="Registration succesfull !":
+
+            audio_directory = "audio_files"
+            if not os.path.exists(audio_directory):
+                os.makedirs(audio_directory)
+
+            # Define the path where the audio file will be saved
+            audio_file_path = os.path.join(audio_directory, f"{username}_{audio.filename}")
+
+            # Save the uploaded audio file to the specified path
+            with open(audio_file_path, "wb") as buffer:
+                while True:
+                    chunk = await audio.read(8192) # Read the file in chunks of 8KB
+                    if not chunk:
+                        break
+                    buffer.write(chunk)
+        
+   
+        return {"message": f"{message}"}
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=400, detail=str(e))

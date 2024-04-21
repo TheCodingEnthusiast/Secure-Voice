@@ -12,7 +12,7 @@ def CRUD_find_user_by_username(username):
     # Search for the user with the given username
     for user in users:
         if user['username'] == username:
-            return [user['username'],user['password'],user['email']]
+            return [user['username'],user['password'],user['email'],user['num']]
     
     # Return None if the user is not found
     return None
@@ -26,6 +26,20 @@ def CRUD_login(username,password):
     else:
 
         if bcrypt.checkpw( password.encode('utf-8'),base64.b64decode(answer[1])):
+            with open('users.json', 'r') as file:
+
+                users = json.load(file)
+        
+    
+            for user in users:
+                if user['username'] == username:
+                    user['num']=user['num']+1
+
+
+            with open('users.json', 'w') as file:
+                # Write the updated list back to the file
+                json.dump(users, file, indent=4)
+
 
             return "Logged in successfully"
         else:
@@ -60,7 +74,7 @@ def CRUD_register(username,password,email):
         password = bcrypt.hashpw(password, bcrypt.gensalt())
         password=base64.b64encode(password).decode('utf-8')
 
-        users.append({"username":username,"email":email,"password":password})
+        users.append({"username":username,"email":email,"password":password,"num":1})
 
         with open('users.json', 'w') as file:
             # Write the updated list back to the file

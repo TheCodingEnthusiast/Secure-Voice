@@ -6,12 +6,11 @@ function Password({ onChange }) {
 
     const [showPopup, setShowPopup] = useState(false);
 
-    const handleClosePopup = (shouldRedirect) => {
+    const handleClosePopup = () => {
         setShowPopup(false);
-        if (shouldRedirect) {
+        
   
-            navigate('/wait-page'); 
-        }
+        alert("Someone from tech team will get back to you shortly !");
     };
 
     const handleForgotPasswordClick = () => {

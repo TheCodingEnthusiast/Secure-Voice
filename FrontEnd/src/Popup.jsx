@@ -8,7 +8,6 @@ const Popup = ({ onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Email submitted:', email);
-        navigate('/wait-page');
         onClose(true); // Pass true to indicate redirection
     };
 
