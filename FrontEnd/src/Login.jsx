@@ -1,13 +1,13 @@
 import React from 'react';
-import HalfScreenRight from './HalfScreenRight';
-import HalfScreenLeft from './HalfScreenLeft';
+import LoginHalfScreenRight from './LoginHalfScreenRight';
+import LoginHalfScreenLeft from './LoginHalfScreenLeft';
 import './Login.css';
 
 function Login() {
  return (
     <div className="container">
-      <HalfScreenLeft />
-      <HalfScreenRight />
+      <LoginHalfScreenLeft />
+      <LoginHalfScreenRight />
       
     </div>
  );

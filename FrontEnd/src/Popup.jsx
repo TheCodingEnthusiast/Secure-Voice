@@ -2,24 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Popup = ({ onClose }) => {
-
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-
-    
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle the submission logic here
         console.log('Email submitted:', email);
-        // Redirect logic goes here
         navigate('/wait-page');
-        onClose(); // Close the popup
+        onClose(true); // Pass true to indicate redirection
     };
 
     return (
         <div className="popup">
             <div className="popup-content">
+                <button className="close-button" onClick={() => onClose(false)}>X</button> 
                 <h3>Forgot Password</h3>
                 <form onSubmit={handleSubmit}>
                     <input
