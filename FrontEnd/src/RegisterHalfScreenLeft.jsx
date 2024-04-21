@@ -25,7 +25,7 @@ function RegisterHalfScreenLeft() {
                 <img src={logo} alt="Description of the image" id="img1"/> 
                 <img src={logo2} alt="Description of the image" id="img2"/> 
 
-                <button className="transparent-button" onClick={handleSignUpClick} >Sign In</button>
+                <button className="transparent-button" onClick={handleSignUpClick} id="reg-signin-butt">Sign In</button>
 
             
         </div>

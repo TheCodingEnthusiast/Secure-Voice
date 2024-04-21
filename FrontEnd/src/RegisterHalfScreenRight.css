@@ -1,0 +1,26 @@
+#register{
+
+    margin-top: 0.25em;
+}
+
+.non-transparent-button-register{
+
+    background: linear-gradient(to right, rgb(255, 0, 222), rgb(255, 0, 255));
+    border: 0.1rem solid white;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition:  0.3s ease;
+    border-radius: 0.5rem;
+    width:20rem;
+    height: auto;
+    margin-top: 3rem;
+    align-self: center;
+}
+
+   
+.non-transparent-button-register:hover {
+    background: linear-gradient(to right, rgb(255, 0, 111), rgb(157, 0, 255));
+    
+   }
