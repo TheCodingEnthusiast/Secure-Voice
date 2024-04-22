@@ -41,9 +41,9 @@ def CRUD_login(username,password):
                 json.dump(users, file, indent=4)
 
 
-            return "Logged in successfully"
+            return "Logged in successfully",user['num']
         else:
-            return "Incorrect Password"
+            return "Incorrect Password",0
 
 def CRUD_find_user_by_email(email):
     # Open the users.json file

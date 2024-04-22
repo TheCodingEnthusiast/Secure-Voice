@@ -12,7 +12,7 @@ function AudioPopup({ onAudioRecorded }) {
                 audioChunks.current.push(e.data);
             });
             mediaRecorderRef.current.addEventListener('stop', () => {
-                const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+                const audioBlob = new Blob(audioChunks.current, { type: 'audio/webm' });
                 const audioURL = URL.createObjectURL(audioBlob);
                 onAudioRecorded(audioURL); // Call the callback with the audio URL
             });

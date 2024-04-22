@@ -2,6 +2,8 @@ from fastapi import FastAPI, Form, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from CRUD import CRUD_find_user_by_username,CRUD_login,CRUD_register
+from model import model
+
 
 app = FastAPI()
 
@@ -18,8 +20,8 @@ async def login(username: str = Form(...), password: str = Form(...), audio: Upl
     try:
         # Define the directory where you want to save the audio files
         # Make sure this directory exists or create it if it doesn't
-        message=CRUD_login(username,password)
-        print(message)
+        message,num=CRUD_login(username,password)
+        
 
         if message=="Logged in successfully":
             audio_directory = f"audio_files"
@@ -36,6 +38,10 @@ async def login(username: str = Form(...), password: str = Form(...), audio: Upl
                     if not chunk:
                         break
                     buffer.write(chunk)
+
+            
+
+
 
 
         
@@ -71,6 +77,8 @@ async def register(username: str = Form(...), password: str = Form(...), email: 
                     if not chunk:
                         break
                     buffer.write(chunk)
+
+
         
    
         return {"message": f"{message}"}

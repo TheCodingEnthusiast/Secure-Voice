@@ -54,7 +54,7 @@ function RegisterHalfScreenLeft() {
                 body: formData,
             });
             const data = await response.json();
-            console.log(data);
+            alert(data['message']);
             // Handle the response here, e.g., navigate to another page
         } catch (error) {
             console.error('Error:', error);

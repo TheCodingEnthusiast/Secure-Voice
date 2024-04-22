@@ -41,7 +41,7 @@ function LoginHalfScreenLeft() {
             const audioBlob = await response.blob();
     
             // Append the audio blob to the FormData
-            formData.append('audio', audioBlob, 'audio.mp3'); // 'audio' is the field name expected by your backend
+            formData.append('audio', audioBlob, 'audio.webm'); // 'audio' is the field name expected by your backend
         } catch (error) {
             console.error('Error fetching audio file:', error);
             return;
@@ -58,7 +58,7 @@ function LoginHalfScreenLeft() {
                 body: formData,
             });
             const data = await response.json();
-            console.log(data);
+            alert(data['message']);
             // Handle the response here, e.g., navigate to another page
         } catch (error) {
             console.error('Error:', error);
