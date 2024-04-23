@@ -37,7 +37,7 @@ function RegisterHalfScreenLeft() {
             const audioBlob = await response.blob();
     
             // Append the audio blob to the FormData
-            formData.append('audio', audioBlob, 'audio.mp3'); // 'audio' is the field name expected by your backend
+            formData.append('audio', audioBlob, 'audio.webm'); // 'audio' is the field name expected by your backend
         } catch (error) {
             console.error('Error fetching audio file:', error);
             return;

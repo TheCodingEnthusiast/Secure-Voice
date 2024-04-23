@@ -1,37 +1,78 @@
-import pickle
+from MFCC_handler import extract_mfcc
 import numpy as np
-import librosa
+import pickle
 
-def model(username,audio_file_path,num):
-    # Specify the path to your .pkl file
-    file_path = 'centroids.pkl'
 
-    audio_arr=extract_mfcc(audio_file_path)
-    # Open the file in binary mode and load the object
-    with open(file_path, 'rb') as file:
-        loaded_object = pickle.load(file)
-    print(loaded_object)
-    user_array=loaded_object[username]
+def recognize_speaker(given_mfcc, user_mfcc,threshold):
 
-    valid=recognize_speaker(audio_arr,user_array,60)
-    print(valid)
-
-def recognize_speaker(new_feature_vector, registered_feature_vectors,threshold):
-    distances = np.linalg.norm(registered_feature_vectors - new_feature_vector, axis=1)
-    min_distance = np.min(distances)
-    if min_distance <= threshold:
+    distance = np.linalg.norm(user_mfcc - given_mfcc)
+    print(distance)
+    if distance<=threshold:
 
         return True
     else:
         return False
+
+
+def update_centroids(given_mfcc,user_mfcc,num):
+
+    return (user_mfcc*num+given_mfcc)/(num+1)
+
+
+def validate_user(username,audio_path):
+
     
-def extract_mfcc(audio_file, sample_rate=16000, n_mfcc=13):
-    # Load the audio file
-    audio_data, sr = librosa.load(audio_file, sr=sample_rate)
-    # Extract MFCC features
-    mfccs = librosa.feature.mfcc(y=audio_data, sr=sr, n_mfcc=n_mfcc)
-    # Take the mean of MFCC coefficients along the time axis
-    feature_vector = np.mean(mfccs, axis=1)
 
-    return feature_vector
 
+    given_mfcc=extract_mfcc(audio_path,audio_path.replace(".webm",".wav"))
+
+    with open("centroids.pkl", 'rb') as file:
+        users = pickle.load(file)
+
+    user_mfcc,num=users[username]
+
+
+    if recognize_speaker(given_mfcc, user_mfcc,60):
+
+        users[username]=[update_centroids(given_mfcc,user_mfcc,num),num+1]
+
+        
+       
+        with open("centroids.pkl", 'wb') as file:
+            pickle.dump(users, file)
+
+
+        return "Logged in Succesfully ! Voice Pattern Matched !!"
+
+    else :
+        return "Biometric verification failed !"
+
+
+def add_user(username,audio_path):
+
+
+    given_mfcc=extract_mfcc(audio_path,audio_path.replace(".webm",".wav"))
+
+    with open("centroids.pkl", 'rb') as file:
+        users = pickle.load(file)
+
+    users[username]=[given_mfcc,1]
+
+
+    with open("centroids.pkl", 'wb') as file:
+        pickle.dump(users, file)
+
+
+    return "New User registered !"
+
+
+
+def show_centroid():
+
+    with open("centroids.pkl", 'rb') as file:
+        users = pickle.load(file)
+
+    print(users)
+
+
+show_centroid()
