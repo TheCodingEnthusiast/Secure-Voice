@@ -72,7 +72,11 @@ def show_centroid():
     with open("centroids.pkl", 'rb') as file:
         users = pickle.load(file)
 
+
     print(users)
+
+
+
 
 
 show_centroid()

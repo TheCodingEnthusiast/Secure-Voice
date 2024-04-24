@@ -83,3 +83,25 @@ async def register(username: str = Form(...), password: str = Form(...), email: 
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=400, detail=str(e))
+    
+
+
+@app.post("/forgot-password")
+async def forgot_password(email: str = Form(...)):
+    try:
+        # Define the path where the forget password requests will be saved
+        forget_password_file_path = "Forget_req.txt"
+
+        # Check if the file exists, if not, create it
+        if not os.path.exists(forget_password_file_path):
+            with open(forget_password_file_path, "w") as file:
+                file.write(email + "\n")
+        else:
+            # If the file exists, append the new email to the file
+            with open(forget_password_file_path, "a") as file:
+                file.write(email + "\n")
+
+        return {"message": "Forgot password request received successfully."}
+    except Exception as e:
+        print(f"Error: {e}")
+        raise HTTPException(status_code=400, detail=str(e))

@@ -10,7 +10,7 @@ function Password({ onChange }) {
         setShowPopup(false);
         
   
-        alert("Someone from tech team will get back to you shortly !");
+        
     };
 
     const handleForgotPasswordClick = () => {

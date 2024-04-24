@@ -2,13 +2,34 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Popup = ({ onClose }) => {
-    const [email, setEmail] = useState('');
-    const navigate = useNavigate();
+    const [emailForgot, setEmail] = useState('');
+ 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Email submitted:', email);
-        onClose(true); // Pass true to indicate redirection
+    const handleSubmit = async (e) => {
+
+        if (emailForgot){
+            const formData = new FormData();
+            formData.append('email', emailForgot);
+        
+        
+            console.log("Finished making formdata above");
+            try {
+                const response = await fetch('http://127.0.0.1:8000/forgot-password', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+                alert(data['message']);
+                // Handle the response here, e.g., navigate to another page
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        else{
+
+            alert("Please enter email");
+
+        }
     };
 
     return (
@@ -20,11 +41,11 @@ const Popup = ({ onClose }) => {
                     <input
                         type="email"
                         placeholder="Enter your email"
-                        value={email}
+                        value={emailForgot}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    <button type="submit">Submit</button>
+                    <button  onClick={handleSubmit}>Submit</button>
                 </form>
             </div>
         </div>
