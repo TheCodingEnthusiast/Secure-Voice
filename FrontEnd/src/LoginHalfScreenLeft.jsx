@@ -4,7 +4,7 @@ import Username from "./Username";
 import Password from "./Password";
 import AudioPopup from './AudioPopup';
 import { useNavigate } from 'react-router-dom';
-import RecordingPopUp from './RecordingPopUp.jsx';
+
 
 
 function LoginHalfScreenLeft() {
@@ -20,7 +20,7 @@ function LoginHalfScreenLeft() {
     const handleAudioRecorded = async (audioURL) => {
         // Prepare FormData with the username and password
         setIsRecording(false);
-        setIsPopupVisible(false);
+        
         console.log("Finished");
     
 
@@ -81,11 +81,12 @@ function LoginHalfScreenLeft() {
             alert('Please fill in all fields.');
             return;
         }
-        setIsPopupVisible(true);
+        
+       
         setIsRecording(true); // Start recording when the "Sign In" button is clicked
     };
 
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    
 
 
     return (
@@ -99,7 +100,7 @@ function LoginHalfScreenLeft() {
 
             {isRecording && <AudioPopup onAudioRecorded={handleAudioRecorded} />}
 
-            {isPopupVisible && <RecordingPopUp />}
+            
 
         </div>
     );

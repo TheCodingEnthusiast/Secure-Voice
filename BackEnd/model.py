@@ -32,9 +32,9 @@ def validate_user(username,audio_path):
     user_mfcc,num=users[username]
 
 
-    if recognize_speaker(given_mfcc, user_mfcc,60):
+    if recognize_speaker(given_mfcc, user_mfcc,40):
 
-        users[username]=[update_centroids(given_mfcc,user_mfcc,num),num+1]
+        # users[username]=[update_centroids(given_mfcc,user_mfcc,num),num+1]
 
         
        
@@ -79,4 +79,4 @@ def show_centroid():
 
 
 
-show_centroid()
+# show_centroid()

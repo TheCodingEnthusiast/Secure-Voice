@@ -5,7 +5,7 @@ import PasswordSet from "./PasswordSet";
 import Email_enter from './Email_enter';
 import AudioPopup from './AudioPopup';
 import { useNavigate } from 'react-router-dom';
-import RecordingPopUp from './RecordingPopUp.jsx';
+
 
 function RegisterHalfScreenLeft() {
 
@@ -19,7 +19,7 @@ function RegisterHalfScreenLeft() {
     const handleAudioRecorded = (audioURL) => {
         setAudioData(audioURL);
         setIsRecording(false);
-        setIsPopupVisible(false);
+        
         submitFormData(username, password,email, audioURL);
        
 
@@ -95,11 +95,11 @@ function RegisterHalfScreenLeft() {
             return;
         }
 
-        setIsPopupVisible(true);
+        
         setIsRecording(true); 
     };
 
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    
 
  return (
     <>
@@ -113,7 +113,7 @@ function RegisterHalfScreenLeft() {
         <button className="non-transparent-button-register" onClick={handleSubmit}>Sign Up</button>
         {isRecording && <AudioPopup onAudioRecorded={handleAudioRecorded} />}
 
-        {isPopupVisible && <RecordingPopUp />}
+       
     
     </div>
     
